@@ -9,14 +9,14 @@ export const register = async (req, res) => {
     try {
         const { fullName, email, password } = req.body;
         if (!fullName || !email || !password) {
-            return res.status(403).json({
+            return res.status(400).json({
                 success: false,
                 message: "All fields are required."
             })
         }
         const user = await User.findOne({ email });
         if (user) {
-            return res.status(403).json({
+            return res.status(400).json({
                 sucess: false,
                 message: "Email id is in use."
             })
@@ -47,7 +47,7 @@ export const login = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(403).json({
+            return res.status(400).json({
                 success: false,
                 message: "All fields are required"
             })
@@ -55,14 +55,14 @@ export const login = async (req, res) => {
 
         const user = await User.findOne({ email })
         if (!user) {
-            return res.status(403).json({
+            return res.status(400).json({
                 success: false,
                 message: "Email or password is wrong"
             })
         }
         const isPasswordMatch = await bcrypt.compare(password, user.password)
         if (!isPasswordMatch) {
-            return res.status(403).json({
+            return res.status(400).json({
                 success: false,
                 message: "incorrect Password"
             })

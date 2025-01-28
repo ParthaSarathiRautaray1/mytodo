@@ -1,18 +1,23 @@
-import { useState } from 'react'
+import Home from "./pages/Home";
+import Login from "./pages/Login";
 
+import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
-
+const appRouter = createBrowserRouter([
+{
+  path:"/",
+  element:<Home />
+},
+{
+  path:"/login",
+  element:<Login />
+}
+])
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
-    <>
-      
-      <h1 className='text-3xl font-bold font-[Poppins] underline'>Hello world</h1>
-      
-      
-    </>
-  )
+    <RouterProvider router={appRouter} />
+  );
 }
 
-export default App
+export default App;

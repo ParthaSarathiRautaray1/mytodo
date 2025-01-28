@@ -33,6 +33,7 @@ function Home() {
           variant: "success",
           className: "success",
         });
+        fetchTodo();
       }
     } catch (error) {
       toast({
@@ -47,20 +48,22 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    const fetchTodo = async () => {
-      try {
-        const res = await axios.get("http://localhost:8000/api/v1/todo/");
-        if (res.data.success) {
-          setTodos(res.data.todos);
-        }
-      } catch (error) {
-        console.log(error);
+
+  const fetchTodo = async () => {
+    try {
+      const res = await axios.get("http://localhost:8000/api/v1/todo/");
+      if (res.data.success) {
+        setTodos(res.data.todos);
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
     fetchTodo();
   }, []);
-
+ 
   return (
     <div>
       <Navbar></Navbar>
